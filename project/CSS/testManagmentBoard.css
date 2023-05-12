@@ -1,0 +1,408 @@
+* {
+    margin: 0%;
+    padding: 0%;
+    box-sizing: border-box;
+    list-style: none;
+}
+
+body {
+    background-image: linear-gradient(180deg, #A9C9FF 0%, #FFBBEC 100%);
+    background-size: cover;
+    overflow-x: hidden;
+    min-height: 100vh;
+}
+
+body::-webkit-scrollbar {
+    width: 6px;
+}
+body::-webkit-scrollbar-track {
+    background-color: rgb(209, 209, 209);
+}
+body::-webkit-scrollbar-thumb {
+    background-color: rgb(110, 110, 110);
+}
+
+
+
+
+.testManagementNav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+
+.container .services {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+
+.container .services .CRUD {
+    height: 80px;
+    min-width: 18%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 1rem;
+    padding: .5rem;
+    margin: 1rem 0;
+    color: black;
+    background-color: #fff;
+    cursor: pointer;
+    box-shadow: 0 0 10px rgb(199, 199, 199);
+}
+
+.CRUD img {
+    height: 100%;
+}
+
+.CRUD:hover {
+    transform: scale(1.1);
+}
+
+.createExamPaper {
+    display: none;
+}
+
+.allExams{
+    display: none;
+}
+.updatePaper{
+    display: none;
+}
+
+.examRecords {
+    width: 75%;
+    display: none;
+}
+
+.visible {
+    display: block;
+}
+
+
+
+
+
+
+
+.main {
+    height: 100%;
+    display: flex;
+    justify-content: space-evenly;
+    left: 0%;
+    padding: 1rem;
+    margin-top: 2rem;
+}
+
+.main :nth-child(2) {
+    align-self: center;
+}
+
+.heading {
+    text-align: center;
+    font-size: 40px;
+}
+
+
+/* List of All Exam Paper CSS */
+
+
+.allExams{
+    width: 60%;
+    border-radius: 10px;
+    padding: 1rem;
+    background-color: #ffffff4a;
+}
+
+.allExams .allExam-main ul{
+    padding: 0;
+}
+
+.allExams .allExam-main ul li{
+    padding: .5rem 1rem;
+    margin: 1rem 0;
+    border-radius: 8px;
+    background-color: #efefef;
+    display: flex;
+    justify-content: space-between;
+    font-weight: 500;
+}
+
+.allExam-main ul li:first-child{
+    font-weight: 700;
+}
+
+
+.examPapers:hover{
+    transform: scale(1.02);
+    cursor: pointer;
+}
+
+.updatePaper .updateAllExam-main ul li{
+    padding: .5rem 1rem;
+    margin: 1rem 0;
+    border-radius: 8px;
+    background-color: #efefef;
+    display: flex;
+    justify-content: space-between;
+    font-weight: 500;
+}
+
+.updateAllExam-main ul li:first-child{
+    font-weight: 700;
+}
+
+.paperNameforUpdate{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+
+
+
+
+
+.fields {
+    display: flex;
+    /* padding: 10px 30px 10px 30px; */
+}
+
+input {
+    color: #b9b9bd !important;
+    background: transparent;
+    border-bottom: 5px solid black;
+    outline: none !important;
+    border-radius: 0% !important;
+    border-width: 0 0 2px 0 !important;
+    font-size: 30px;
+}
+
+
+
+form {
+    border: 2px solid black;
+    border-radius: 10px;
+    padding: 20px;
+    background-color: white;
+    box-shadow: 1px -1px 20px white;
+}
+
+h2 {
+    color: black;
+    text-align: center;
+}
+
+label {
+    font-size: 20px;
+}
+
+
+.button-sub {
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
+}
+
+
+
+/* Table */
+
+.custom-table {
+    width: 100%;
+    top: 5%;
+    padding: 3rem 0;
+}
+
+table {
+    border-collapse: separate;
+    border-spacing: 0;
+    width: 100%;
+    top: 5%;
+    background-color: white;
+
+}
+
+table tr th,
+table tr td {
+    border-right: 1px solid #bbb;
+    border-bottom: 1px solid #bbb;
+    padding: 5px;
+
+}
+
+table tr th:first-child,
+table tr th:last-child {
+    border-top: solid 1px #bbb;
+}
+
+table tr th:first-child,
+table tr td:first-child {
+    border-left: 1px solid #bbb;
+
+}
+
+table tr th:first-child,
+table tr td:first-child {
+    border-left: 1px solid #bbb;
+}
+
+table tr th {
+    background: #eee;
+    text-align: left;
+}
+
+table.Info tr th,
+table.Info tr:first-child td {
+    border-top: 1px solid #bbb;
+}
+
+/* top-left border-radius */
+table tr:first-child th:first-child,
+table.Info tr:first-child td:first-child {
+    border-top-left-radius: 6px;
+}
+
+/* top-right border-radius */
+table tr:first-child th:last-child,
+table.Info tr:first-child td:last-child {
+    border-top-right-radius: 6px;
+}
+
+/* bottom-left border-radius */
+table tr:last-child td:first-child {
+    border-bottom-left-radius: 6px;
+}
+
+/* bottom-right border-radius */
+table tr:last-child td:last-child {
+    border-bottom-right-radius: 6px;
+}
+
+
+
+
+
+
+/* Back Button */
+
+/* .button {
+    position: fixed;
+    top: 0%;
+    right: 0%;
+} */
+
+.bck {
+    height: 80px;
+    width: 80px;
+    border: 2px solid transparent;
+    border-radius: 50%;
+    align-self: center;
+    display: flex;
+    margin: auto;
+}
+
+.bck a {
+    margin: auto;
+}
+
+.blurr {
+    filter: blur(3px);
+}
+
+
+
+
+
+
+/* Profile-card */
+
+.profile {
+    border-radius: 100%;
+    width: 64px;
+    height: 60px;
+    z-index: 1;
+    /* margin-left: -400px; */
+}
+
+.profile-card {
+    position: absolute;
+    top: 1rem;
+    height: fit-content;
+    min-width: fit-content;
+    width: 300px;
+    border-radius: 16px;
+    position: absolute;
+    z-index: 1;
+    padding: 10px;
+    background-color: rgb(36, 88, 184);
+}
+
+.first {
+    margin-top: 5px;
+}
+
+.first span {
+    margin-top: 5px;
+    padding: 20px 20px 0px 20px;
+}
+
+
+.second {
+    display: flex;
+
+}
+
+.second #pic {
+    border-radius: 100%;
+    width: 138px;
+    height: 128px;
+    margin: auto;
+}
+
+.details {
+    /* display: inline-block; */
+    width: 100%;
+}
+
+.details h3 {
+    color: white;
+    display: flex;
+    justify-content: center;
+}
+
+.details p {
+    color: white;
+    font-size: 21px;
+    font-weight: 300;
+    display: flex;
+    justify-content: center;
+}
+
+.details button {
+    border-radius: 30px !important;
+    margin: auto;
+    margin-bottom: 20px;
+}
+
+#logout {
+    min-width: 100px;
+    min-height: 40px;
+}
+
+
+/* @media screen and (max-width:768px) {
+        .main {
+            flex-direction: column;
+            align-content: center;
+        }
+
+        #examrecord{
+            margin-left: 0 !important;
+            width: 100%;
+        }
+    } */
