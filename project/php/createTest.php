@@ -17,7 +17,7 @@ if (isset($_POST['submit'])) {
 
     $subject = $_SESSION["table_name"]; // >>>>>
     $subjectCode = $_POST['subjectCode'];
-    $teacherName = $_SESSION["teacher_name"];//>>>>>>
+    $teacherName = $_SESSION["teacher_name"]; //>>>>>>
 
 
     $optionsheet = "optionsheet_" . $_SESSION["table_name"];
@@ -34,24 +34,27 @@ if (isset($_POST['submit'])) {
 
         // /* insert this line
         $subjectCheckerquery = "SELECT SubjectCode FROM teacher_info WHERE Username = '{$teacherName}'";
-        $checkerSubject= mysqli_query($connection,$subjectCheckerquery) or die("unable to check ");
+        $checkerSubject = mysqli_query($connection, $subjectCheckerquery);
 
-        if(mysqli_num_rows($checkerSubject)>0)
-        {
-
-            $insertionOfPaperInTeacherTable = "UPDATE teacher_info SET SubjectCode =  CONCAT(SubjectCode,',{$subject}') WHERE Username = '{$teacherName}' " ; //concat fucntion used >>>>>
-            $mysqlFor_paper = mysqli_query($connection,$insertionOfPaperInTeacherTable) or die("database failed"); 
-
-        }else{
-            $insertionOfPaperInTeacherTable = "UPDATE teacher_info SET SubjectCode =  '{$subject}' WHERE Username = '{$teacherName}' " ; // >>>>>
-            $mysqlFor_paper = mysqli_query($connection,$insertionOfPaperInTeacherTable) or die("database failed"); 
+        if (mysqli_num_rows($checkerSubject) > 0) {
+            while ($row = mysqli_fetch_assoc($checkerSubject)) {
+                if ($row["SubjectCode"]) {
+                    $insertionOfPaperInTeacherTable = "UPDATE teacher_info SET SubjectCode =  CONCAT(SubjectCode,',{$subject}') WHERE Username = '{$teacherName}' "; //concat fucntion used >>>>>
+                    $mysqlFor_paper = mysqli_query($connection, $insertionOfPaperInTeacherTable) or die("database failed");
+                    
+                } else {
+                    $insertionOfPaperInTeacherTable = "UPDATE teacher_info SET SubjectCode =  '{$subject}' WHERE Username = '{$teacherName}' "; // >>>>>
+                    $mysqlFor_paper = mysqli_query($connection, $insertionOfPaperInTeacherTable) or die("database failed");
+                    
+                }
+            }
         }
-// */
+        // */
         // $insertionOfPaperInTeacherTable = "UPDATE teacher_info SET SubjectCode =  '{$subject}' WHERE Username = '{$teacherName}' " ; // >>>>>
         // $mysqlFor_paper = mysqli_query($connection,$insertionOfPaperInTeacherTable) or die("database failed"); //>>>>>>
 
-        $insertIntoSubjectList ="INSERT INTO SubjectList(`SubjectCode`,`SubjectName`) Values ('{$subjectCode}','{$subject}') "; //>>>>>
-        $mysql_insertIntoList = mysqli_query($connection,$insertIntoSubjectList) or die("subject list creation "); //>>>>>
+        $insertIntoSubjectList = "INSERT INTO SubjectList(`SubjectCode`,`SubjectName`) Values ('{$subjectCode}','{$subject}') "; //>>>>>
+        $mysql_insertIntoList = mysqli_query($connection, $insertIntoSubjectList) or die("subject list creation "); //>>>>>
 
         $query_creation = mysqli_query($connection, $sql_creation) or die(header("./testManagmentBoard.php"));
 
@@ -80,15 +83,14 @@ if (isset($_POST['submit'])) {
         // $sql_optionsheet = "CREATE TABLE $optionsheet(question_id int(11) NOT NULL ,question varchar(1000),option1 varchar(1000),option2 varchar(1000),option3 varchar(1000),option4 varchar(1000))";
         // $sql_test = " CREATE TABLE $test(question_id int(11),answer varchar(1000))"; /// >>>>>>
 
-        $sql_optionsheet="CREATE TABLE `$optionsheet`(question_id int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY ,question varchar(1000),option1 varchar(1000),option2 varchar(1000),option3 varchar(1000),option4 varchar(1000))";
-        $sql_test=" CREATE TABLE `$test`(question_id int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,answer varchar(1000))";
+        $sql_optionsheet = "CREATE TABLE `$optionsheet`(question_id int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY ,question varchar(1000),option1 varchar(1000),option2 varchar(1000),option3 varchar(1000),option4 varchar(1000))";
+        $sql_test = " CREATE TABLE `$test`(question_id int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,answer varchar(1000))";
 
 
         mysqli_query($connection, $sql_optionsheet) or die("optionsheet error");
         mysqli_query($connection, $sql_test) or die("test table error");
 
         header("Location:./QuestionUpload.php");
-
     }
     if ($checker == "DeleteTable") {
         $sql_deletion = "DROP TABLE {$table}";
@@ -113,7 +115,6 @@ if (isset($_POST['submit'])) {
         $query_deletion = mysqli_query($connection, $sql_deletion);
         header("Location: ./testManagmentBoard.php");
     }
-
 } else {
     session_destroy();
     header("Location : ./login.php");
