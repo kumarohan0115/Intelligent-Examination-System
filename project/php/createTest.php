@@ -41,11 +41,9 @@ if (isset($_POST['submit'])) {
                 if ($row["SubjectCode"]) {
                     $insertionOfPaperInTeacherTable = "UPDATE teacher_info SET SubjectCode =  CONCAT(SubjectCode,',{$subject}') WHERE Username = '{$teacherName}' "; //concat fucntion used >>>>>
                     $mysqlFor_paper = mysqli_query($connection, $insertionOfPaperInTeacherTable) or die("database failed");
-                    
                 } else {
                     $insertionOfPaperInTeacherTable = "UPDATE teacher_info SET SubjectCode =  '{$subject}' WHERE Username = '{$teacherName}' "; // >>>>>
                     $mysqlFor_paper = mysqli_query($connection, $insertionOfPaperInTeacherTable) or die("database failed");
-                    
                 }
             }
         }
@@ -104,7 +102,39 @@ if (isset($_POST['submit'])) {
 
         //till here
 
+        //deletion from teacher_info table
 
+        $delimiter = ",";
+        $queryForallsubject = "SELECT * FROM teacher_info WHERE Username ='{$teacherName}' ";
+
+        $mysql_queryForAllsubject = mysqli_query($connection, $queryForallsubject) or die("error while bring the subject");
+        $subjectList = "";
+
+        $firstTime = true;
+
+        if (mysqli_num_rows($mysql_queryForAllsubject) > 0) {
+            while ($rows = mysqli_fetch_assoc($mysql_queryForAllsubject)) {
+                $words = explode($delimiter, $rows["SubjectCode"]);
+
+                foreach ($words as $word) {
+                    if ($word == $subject) {
+                        // echo ("found the subject" . $word . "<br/>");
+                    } else {
+                        if ($firstTime) {
+                            $subjectList .= $word;
+                            $firstTime = false;
+                        } else {
+                            $subjectList .= "," . $word;
+                        }
+                    }
+                }
+            }
+        }
+
+        $query_to_subject = "UPDATE teacher_info SET SubjectCode = '{$subjectList}' WHERE Username = '{$teacherName}'";
+        $mysqli = mysqli_query($connection, $query_to_subject)  or die("error in deletion from teacher_info table");
+
+        //---------------->
 
         mysqli_query($connection, $sql_subject);
         mysqli_query($connection, $sql_optionsheet);
