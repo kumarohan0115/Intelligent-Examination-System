@@ -5,6 +5,7 @@ $dbconnection = require('../config/connective.php');
 $teacher_username = $_SESSION['teacher_name'];
 ?>
 
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -141,6 +142,34 @@ $teacher_username = $_SESSION['teacher_name'];
                             placeholder="Duration of paper in Minutes">
 
                     </div>
+                    <hr>
+
+                    <div class="fields">
+                        <label for="ExamTime" class="inputs">Examination Time:</label>
+                        <input type="text" name="ExaminationTime" class="form-control" autocomplete="ExaminationTime "
+                            placeholder="Timing">
+
+                    </div>
+                    <hr>
+
+
+                    <div class="fields">
+                        <label for="ExamDate" class="inputs">Examination Date:</label>
+                        <input type="text" name="ExaminationDate" class="form-control" autocomplete="ExaminationDate"
+                            placeholder="Date">
+
+                    </div>
+                    <hr>
+
+
+                    <div class="fields">
+                        <label for="Marks" class="inputs">Marks:</label>
+                        <input type="text" name="Marks" class="form-control" autocomplete="Mark"
+                            placeholder="marks">
+
+                    </div>
+                    <hr>
+
 
                     <div class="button-sub">
                         <button id="create" type="submit" id="sub" name="submit" class="btn btn-lg btn-success"
@@ -248,14 +277,6 @@ $teacher_username = $_SESSION['teacher_name'];
                 </div>
             </div>
 
-
-
-
-
-
-
-
-
             <div class="examRecords" id='examRecords'>
                 <form action="<?php echo $_SERVER['PHP_SELF']; ?>" id="record" class="form-group" method="POST">
 
@@ -265,17 +286,21 @@ $teacher_username = $_SESSION['teacher_name'];
                         <option value="Select" selected>Select</option>
                         <?php
                         $dbconnection;
-
-                        $sql_subject = "SELECT `subject` FROM subject_info";
-                        $show_subject = mysqli_query($connection, $sql_subject) or die("cannot show subject");
-
+                            $delimiter = ",";
+                        $sql_subject = "SELECT * FROM teacher_info WHERE Username ='{$teacher_username}'";
+                        $show_subject = mysqli_query($connection, $sql_subject) or die("record occur error");
                         if (mysqli_num_rows($show_subject) > 0) {
-                            while ($row = mysqli_fetch_assoc($show_subject)) {
+                            while ($rows = mysqli_fetch_assoc($show_subject)) {
+                                $words = explode($delimiter, $rows["SubjectCode"]);
+
+                                foreach ($words as $word) {
+
                                 ?>
-                                <option value=<?php echo $row["subject"]; ?> name="subject"> <?php echo $row["subject"]; ?>
+                                <option value=<?php echo $word; ?> name="subject"> <?php echo $word; ?>
                                 </option>
 
                             <?php }
+                            }
                         }
                         ?>
                     </select>

@@ -131,9 +131,12 @@ $dbconnection=require('../config/connective.php')
 
 
                                 <div class="time-div">
-                                    Time:4:00 PM
+                                    Time: <?php echo ($row["ExaminationTime"]) ?>
                                 </div>
 
+                                <div class = "date-div">
+                                    Date: <?php echo ($row["ExaminationDate"]) ?>
+                                </div>
 
                                 <div class="duration-div" name="duration">
                                     <select name="duration" style="display: none;">
@@ -152,7 +155,7 @@ $dbconnection=require('../config/connective.php')
 
 
                                 <div class="total-marks-div">
-                                    Total marks:100
+                                    Total marks: <?php echo ($row["Marks"]); ?>
                                 </div>
                                 <?php
                                 if (mysqli_num_rows($existing) > 0) {
@@ -232,7 +235,7 @@ $dbconnection=require('../config/connective.php')
 
                 // do these thing 
                 success: function(response) {
-                    window.location.href = "Login.php";
+                    window.location.href = "login.php";
                 }
             })
         })

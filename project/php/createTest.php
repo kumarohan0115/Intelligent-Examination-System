@@ -28,6 +28,12 @@ if (isset($_POST['submit'])) {
     $table = "online_test_" . $_SESSION["table_name"]; //table name change here for further testing
 
 
+    // date time insertion in mysql 
+    $Examdate = $_POST["ExaminationDate"];
+    $ExamTime = $_POST["ExaminationTime"];
+    $mark = $_POST["Marks"];
+
+    
     if ($checker == "createTable") //check box option will come here for the checking;
     {
         $sql_creation = "CREATE TABLE `$table`(Username_test varchar(1000),score int)";
@@ -64,8 +70,8 @@ if (isset($_POST['submit'])) {
 
 
 
-        $sql_subject = "INSERT INTO subject_info(`subject`,`no_question`,`duration` )VALUES('{$tablename}','{$number_of_question}','{$time}')";
-        $query_subject = mysqli_query($connection, $sql_subject);
+        $sql_subject = "INSERT INTO subject_info(`subject`,`no_question`,`duration`,`ExaminationDate`,`ExaminationTime` ,`Marks`)VALUES('{$tablename}','{$number_of_question}','{$time}','{$Examdate}' , '{$ExamTime}' , '{$mark}')";
+        $query_subject = mysqli_query($connection, $sql_subject) or die("error while inserting the subject information");
 
         //insert it there in unaux.com 
 
@@ -103,7 +109,7 @@ if (isset($_POST['submit'])) {
         //till here
 
         //deletion from teacher_info table
-
+        $deletionConstaint = false;
         $delimiter = ",";
         $queryForallsubject = "SELECT * FROM teacher_info WHERE Username ='{$teacherName}' ";
 
@@ -118,7 +124,7 @@ if (isset($_POST['submit'])) {
 
                 foreach ($words as $word) {
                     if ($word == $subject) {
-                        // echo ("found the subject" . $word . "<br/>");
+                        $deletionConstaint = true;
                     } else {
                         if ($firstTime) {
                             $subjectList .= $word;
@@ -131,19 +137,26 @@ if (isset($_POST['submit'])) {
             }
         }
 
-        $query_to_subject = "UPDATE teacher_info SET SubjectCode = '{$subjectList}' WHERE Username = '{$teacherName}'";
-        $mysqli = mysqli_query($connection, $query_to_subject)  or die("error in deletion from teacher_info table");
+        if($deletionConstaint)
+        {
+        
+            $query_to_subject = "UPDATE teacher_info SET SubjectCode = '{$subjectList}' WHERE Username = '{$teacherName}'";
+            $mysqli = mysqli_query($connection, $query_to_subject)  or die("error in deletion from teacher_info table");
 
-        //---------------->
+            //---------------->
 
-        mysqli_query($connection, $sql_subject);
-        mysqli_query($connection, $sql_optionsheet);
-        mysqli_query($connection, $sql_test);
-        mysqli_query($connection, $sql_exam_record);
-        mysqli_query($connection, $sql_subject_record);
+            mysqli_query($connection, $sql_subject);
+            mysqli_query($connection, $sql_optionsheet);
+            mysqli_query($connection, $sql_test);
+            mysqli_query($connection, $sql_exam_record);
+            mysqli_query($connection, $sql_subject_record);
 
-        $query_deletion = mysqli_query($connection, $sql_deletion);
-        header("Location: ./testManagmentBoard.php");
+            $query_deletion = mysqli_query($connection, $sql_deletion);
+            header("Location: ./testManagmentBoard.php");
+        }
+        else{
+            header("Location: ./testManagmentBoard.php");
+        }
     }
 } else {
     session_destroy();
