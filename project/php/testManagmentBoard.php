@@ -110,23 +110,7 @@ $teacher_username = $_SESSION['teacher_name'];
                     <div class="fields">
                         <label for="table name" class="inputs">Enter Subject Code:</label>
                         <input id="paperCode" type="text" name="subjectCode" class="form-control" autocomplete="SubjectCode" placeholder="Enter Subject Code">
-                    </div>
-
-                    <hr>
-
-                    <div class="fields">
-                        <label for="no_of_question" class="inputs">Enter No. of Question:</label>
-                        <input id="question_num" type="text" name="no_of_question" class="form-control" autocomplete="num-of-question" placeholder="Enter No. of Question">
-
-                    </div>
-                    <hr>
-
-                    <div class="fields">
-                        <label for="time" class="inputs">Duration for Paper (Minutes):</label>
-                        <input type="number" name="time" class="form-control" autocomplete="Duration" placeholder="Duration of paper in Minutes">
-
-                    </div>
-                    <hr>
+                    </div>https://prod.liveshare.vsengsaas.visualstudio.com/join?8DCE1EF31B12946893A0BCA5F91FAE72506E
 
                     <div class="fields">
                         <label for="ExamTime" class="inputs">Examination Time:</label>
@@ -449,6 +433,7 @@ $teacher_username = $_SESSION['teacher_name'];
                 }
             } ?>
 <script>
+
     $(document).ready(function() {
 
         $("#createpaper").click(function() {
@@ -497,8 +482,6 @@ $teacher_username = $_SESSION['teacher_name'];
             $('#deletePaper').removeClass("visible");
             console.log("click")
         })
-
-
 
 
         $("#record").click(function() {
