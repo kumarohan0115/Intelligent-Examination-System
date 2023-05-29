@@ -117,9 +117,7 @@ if (isset($_POST['submit'])) {
                 $words = explode($delimiter, $rows["SubjectCode"]);
 
                 foreach ($words as $word) {
-                    if ($word == $subject) {
-                        // echo ("found the subject" . $word . "<br/>");
-                    } else {
+                    if ($word != $subject) {
                         if ($firstTime) {
                             $subjectList .= $word;
                             $firstTime = false;
@@ -134,8 +132,6 @@ if (isset($_POST['submit'])) {
         $query_to_subject = "UPDATE teacher_info SET SubjectCode = '{$subjectList}' WHERE Username = '{$teacherName}'";
         $mysqli = mysqli_query($connection, $query_to_subject)  or die("error in deletion from teacher_info table");
 
-        //---------------->
-
         mysqli_query($connection, $sql_subject);
         mysqli_query($connection, $sql_optionsheet);
         mysqli_query($connection, $sql_test);
@@ -149,14 +145,3 @@ if (isset($_POST['submit'])) {
     session_destroy();
     header("Location : ./login.php");
 }
-
-
-
-
-// DSA
-
-// Q1. Q 1 2 3 4 A    
-// Q2. Q 1 2 3 4 A 
-
-
-// 109 call Ajax Questionpaper => test_paper=> Q1.Q   Q1.A  online_test=>+1  testRecord=> total  Final Submittion: test_paper(drop), testRecord(drop)

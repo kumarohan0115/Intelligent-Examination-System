@@ -14,7 +14,7 @@
         $username_for_student=$_POST["Email"];
         $password_of_student=$_POST["password"];
 
-//i will writehere ;
+        //i will writehere ;
 
 
     $sql="INSERT INTO user_info(`student_Id`,`branch`,`name_student`,`user_name`,`password`)
@@ -22,12 +22,12 @@
 
     $query= mysqli_query($connection,$sql) or die($full_name);
     
-    header("Location: Login.php");
+    header("Location: ./Login.php");
 
     }
     else{
         session_destroy();
-        header("Location :signup.php");
+        header("Location: ./signup.php");
     }
 
 ?>

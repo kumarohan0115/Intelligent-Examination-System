@@ -33,7 +33,9 @@ if(isset($_POST["candidate-login"]))
     else 
     {
         echo '<div class="alert alert-danger">check your username Or Password.</div>';
-        header("Location: Login.php");
+        echo 'alert("Wrong Password")';
+        
+        header("Location: ./Login.php");
     }
 }
 else {
