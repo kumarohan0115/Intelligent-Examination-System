@@ -32,10 +32,7 @@ else{ // no record
     //upto here 
 
     
-    // header("Location: Exam-end.html");
-
-    // header("Location: h.php");
-    // echo("record has been modfiy else wala");
+    header("Location: ../HTML/Exam-end.html");
 
     $user_info_subject= "UPDATE  user_info SET `$subject`=True  WHERE `user_name` = '{$_SESSION["username"]}'";
     mysqli_query($connection,$user_info_subject);

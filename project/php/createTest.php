@@ -162,14 +162,3 @@ if (isset($_POST['submit'])) {
     session_destroy();
     header("Location : ./login.php");
 }
-
-
-
-
-// DSA
-
-// Q1. Q 1 2 3 4 A    
-// Q2. Q 1 2 3 4 A 
-
-
-// 109 call Ajax Questionpaper => test_paper=> Q1.Q   Q1.A  online_test=>+1  testRecord=> total  Final Submittion: test_paper(drop), testRecord(drop)

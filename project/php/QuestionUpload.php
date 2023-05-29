@@ -106,7 +106,7 @@ if (mysqli_num_rows($inst_name) > 0) {
                             <br>
                             <li><input class="form-control eventinput" type="text" name="paperdata[<?php echo $i ?>][option_4]" id="" placeholder="Option-4"></li>
                             <label for="Answer">Answer</label>
-                            <li><input class="form-control ans_data" type="text" name="paperdata[<?php echo $i ?>][answer]" id="" placeholder="Corect Answer"></li>
+                            <li><input class="form-control ans_data" type="text" name="paperdata[<?php echo $i ?>][answer]" id="" placeholder="Correct Answer"></li>
                         </ul>
                     </div>
 
@@ -193,7 +193,6 @@ if (mysqli_num_rows($inst_name) > 0) {
             mysqli_query($connection, $sql2) or die("answer nhi gya");
         }
         array_map("insertData", $_POST['paperdata']);
-
     }
 
 

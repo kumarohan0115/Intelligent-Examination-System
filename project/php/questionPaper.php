@@ -4,17 +4,17 @@ session_start(); // session is god
 if (!empty($_SESSION["username"])) {
 
 
-    ?>
+?>
 
     <script>
         var warning = 0; //  data will come from html side not from php 
         let where = 1;
 
 
-        var timer = '<?= $_SESSION["time"] ?>';
+        var paperDuration = '<?= $_SESSION["time"] ?>';
+        var total_question = '<?= $_SESSION["no_question"] ?>'; // need this thing god like power
 
-        setTimeout(function () {
-
+        setTimeout(function() {
             $.ajax({
                 type: 'POST',
                 url: 'exam_end.php'
@@ -22,10 +22,9 @@ if (!empty($_SESSION["username"])) {
             }), document.getElementById("man").style.display = "none";
             document.getElementById("finish").style.display = "block";
 
-            window.location.href = "index.html";
+            window.location.href = "../HTML/index.html";
         }, 60000 * timer); //timer function for paper
 
-        var total_question = '<?= $_SESSION["no_question"] ?>'; // need this thing god like power
         // =======
         // });
 
@@ -35,8 +34,8 @@ if (!empty($_SESSION["username"])) {
 
         // ,60000*timer);
 
-        setTimeout(function () {
-            $(document).ready(function () {
+        setTimeout(function() {
+            $(document).ready(function() {
                 $(".sweet-alert").css({
                     "visibility": "visible"
                 });
@@ -45,7 +44,7 @@ if (!empty($_SESSION["username"])) {
         }, 60000 * (timer - 1));
 
         var total_question = '<?= $_SESSION["no_question"] ?>'; // need this thing god like power
-                //   console.log("Time hu mai:"+timer);
+        //   console.log("Time hu mai:"+timer);
     </script>
 
 
@@ -66,8 +65,7 @@ if (!empty($_SESSION["username"])) {
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
-        <script src="https://code.jquery.com/jquery-3.6.0.min.js"
-            integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 
         <link rel="stylesheet" href="../CSS/questionPaper.css" />
 
@@ -85,29 +83,27 @@ if (!empty($_SESSION["username"])) {
                 if (requestMethod) { // Native full screen.
                     requestMethod.call(element);
                 } else
-                    if (typeof window.ActiveXObject !== "undefined") { // Older IE.
-                        var wscript = new ActiveXObject("WScript.Shell");
-                        if (wscript !== null) {
-                            wscript.SendKeys("{F11}");
-                        }
+                if (typeof window.ActiveXObject !== "undefined") { // Older IE.
+                    var wscript = new ActiveXObject("WScript.Shell");
+                    if (wscript !== null) {
+                        wscript.SendKeys("{F11}");
                     }
+                }
             }
-
             var elem = document.body; // Make the body go full screen.
             requestFullScreen(elem);
         }
 
         const mark = () => {
-            $(document).click
+            $(document).click;
             document.getElementById('thelist' + where).style.backgroundColor = "rgb(255, 217, 29)"
         }
         const unmark = () => {
-            $(document).click
-            document.getElementById('thelist' + where) // i was working here
+            $(document).click;
+            document.getElementById('thelist' + where).style.backgroundColor = "red" // i was working here
         }
 
         window.addEventListener("load", () => {
-            console.log("working")
             document.getElementById("full-screen").click();
         })
     </script>
@@ -125,27 +121,51 @@ if (!empty($_SESSION["username"])) {
                     $query_profile = mysqli_query($connection, $profile_card);
                     if (mysqli_num_rows($query_profile) > 0) {
                         while ($rowler = mysqli_fetch_assoc($query_profile)) {
-                            ?>
-                            <li>Institute Name</li>
-                            <li>Subject Name:
-                                <?php echo ($_SESSION["table_name"]) ?>
-                            </li>
-                        </ul>
-                        <ul>
-                            <div class="sweet-alert" style="background-color: tomato; color:white; padding: 10px;">
-                                Only 5 mins left!
-                            </div>
-                            <li>
-                                <?php echo $rowler["user_name"]; ?>
-                            </li>
-                            <li>
-                                <?php echo $rowler["student_Id"]; ?>
-                            </li>
-                            <li><span style="font-size: 40px;" class="material-icons orange600">face</span></li>
-                            <?php
+                    ?>  <!-- <li>Institute Name</li> -->
+                        <li>Subject Name:
+                            <?php echo ($_SESSION["table_name"]) ?>
+                        </li>
+                </ul>
+                <ul>
+                    <div class="sweet-alert" id="timeofExam" style="background-color: tomato; color:white; padding: 10px;">
+                        <script>
+                            function startTimer(duration, display) {
+                                var timer = duration,
+                                    minutes, seconds;
+                                setInterval(function() {
+                                    minutes = parseInt(timer / 60, 10);
+                                    seconds = parseInt(timer % 60, 10);
+
+                                    minutes = minutes < 10 ? "0" + minutes : minutes;
+                                    seconds = seconds < 10 ? "0" + seconds : seconds;
+
+                                    display.textContent = minutes + ":" + seconds;
+
+                                    if (--timer < 0) {
+                                        timer = duration;
+                                    }
+                                }, 1000);
+                            }
+
+                            window.onload = function() {
+                                var fiveMinutes = 60 * paperDuration,
+                                    display = document.querySelector('#timeofExam');
+                                startTimer(fiveMinutes, display);
+                            };
+                            // document.getElementsByClassName('sweet-alert')[0].innerHTML = timer;
+                        </script>
+                    </div>
+                    <li>
+                        <?php echo $rowler["user_name"]; ?>
+                    </li>
+                    <li>
+                        <?php echo $rowler["student_Id"]; ?>
+                    </li>
+                    <li><span style="font-size: 40px;" class="material-icons orange600">face</span></li>
+            <?php
                         }
                     }
-                    ?>
+            ?>
                 </ul>
             </div>
         </nav>
@@ -217,9 +237,8 @@ if (!empty($_SESSION["username"])) {
                     <div id="count_and_button">
                         <h3 id="counter"></h3>
                         <button class="btn btn-warning" onclick="mark()">Mark</button>
-                        <button class="btn btn-warning" style="display:none" data-bs-toggle="modal"
-                            data-bs-target="#fullscreenPermission" id="full-screen">FS</button>
-                        <button class="btn" style="background-color: #ff8200;">UnMark</button>
+                        <button class="btn btn-warning" style="display:none" data-bs-toggle="modal" data-bs-target="#fullscreenPermission" id="full-screen">FS</button>
+                        <button class="btn" style="background-color: #ff8200;" onclick="unmark()">UnMark</button>
                     </div>
 
                     <div id="menu-outer">
@@ -265,12 +284,11 @@ if (!empty($_SESSION["username"])) {
             </div>
         </div>
 
-        
+
 
 
         <!-- Modal -->
-        <div class="modal fade" id="fullscreenPermission" tabindex="-1" aria-labelledby="exampleModalLabel"
-            aria-hidden="true">
+        <div class="modal fade" id="fullscreenPermission" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -280,8 +298,7 @@ if (!empty($_SESSION["username"])) {
                         Please Allow Full Screen Mode to Continue!
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal"
-                            onclick="fullScn()">Allow</button>
+                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal" onclick="fullScn()">Allow</button>
                     </div>
                 </div>
             </div>
@@ -329,7 +346,7 @@ if (!empty($_SESSION["username"])) {
                     data: {
                         count: where
                     },
-                    success: function (data) {
+                    success: function(data) {
                         $(".question-box").html(data);
                     }
                 });
@@ -340,7 +357,7 @@ if (!empty($_SESSION["username"])) {
                     data: {
                         count: where
                     },
-                    success: function (data) {
+                    success: function(data) {
                         $(".options").html(data);
                         var ans1 = getCookie(where);
                         var ans2 = getCookie(where);
@@ -371,14 +388,14 @@ if (!empty($_SESSION["username"])) {
             });
 
 
-            
 
 
 
 
 
-            $(document).ready(function () {
-                $(document).keydown(function (e) {
+
+            $(document).ready(function() {
+                $(document).keydown(function(e) {
 
                     var $key = e.keyCode;
                     console.log("$key: " + $key)
@@ -430,8 +447,6 @@ if (!empty($_SESSION["username"])) {
                     }
 
                     if ($key == key4 - 32) {
-
-
                         document.getElementById("opt-4").checked = true;
                         document.getElementById("opt-1").checked = false;
                         document.getElementById("opt-3").checked = false;
@@ -456,9 +471,9 @@ if (!empty($_SESSION["username"])) {
                                     count: where
                                 },
 
-                                
+
                                 // do these thing 
-                                success: function (response) {
+                                success: function(response) {
                                     $('#result').html(response);
                                 }
                             })
@@ -474,7 +489,7 @@ if (!empty($_SESSION["username"])) {
                                 document.getElementById("finish").style.display = "block";
 
 
-                                setTimeout(function () {
+                                setTimeout(function() {
                                     window.location.href = "../HTML/index.html";
                                 }, 10000);
                             }
@@ -486,7 +501,7 @@ if (!empty($_SESSION["username"])) {
                                     count: where
                                 },
 
-                                success: function (data) {
+                                success: function(data) {
                                     numb = where - 1;
                                     // console.log("these"+numb+where+data);
                                     $('#thelist' + numb).html(data);
@@ -508,7 +523,7 @@ if (!empty($_SESSION["username"])) {
                             data: {
                                 count: where
                             },
-                            success: function (data) {
+                            success: function(data) {
                                 $(".question-box").html(data);
                             }
                         });
@@ -520,7 +535,7 @@ if (!empty($_SESSION["username"])) {
                             data: {
                                 count: where
                             },
-                            success: function (data) {
+                            success: function(data) {
                                 $(".options").html(data);
                                 var ans1 = getCookie(where);
                                 var ans2 = getCookie(where);
@@ -571,7 +586,7 @@ if (!empty($_SESSION["username"])) {
                                     data: {
                                         count: where
                                     },
-                                    success: function (data) {
+                                    success: function(data) {
                                         $(".question-box").html(data);
                                     }
                                 })
@@ -584,7 +599,7 @@ if (!empty($_SESSION["username"])) {
                                     data: {
                                         count: where
                                     },
-                                    success: function (data) {
+                                    success: function(data) {
                                         $(".options").html(data);
                                         var ans1 = getCookie(where);
                                         var ans2 = getCookie(where);
@@ -676,7 +691,7 @@ if (!empty($_SESSION["username"])) {
         </script>
 
         <script>
-            document.addEventListener("keyup", function (e) {
+            document.addEventListener("keyup", function(e) {
                 var keyCode = e.keyCode ? e.keyCode : e.which;
                 if (keyCode == 44) {
                     stopPrntScr();
@@ -700,7 +715,7 @@ if (!empty($_SESSION["username"])) {
             function AccessClipboardData() {
                 try {
                     window.clipboardData.setData('text', "Access   Restricted");
-                } catch (err) { }
+                } catch (err) {}
             }
             setInterval("AccessClipboardData()", 100);
         </script>
@@ -711,13 +726,13 @@ if (!empty($_SESSION["username"])) {
                 document.captureEvents(Event.MOUSEDOWN);
 
                 //Disable the OnMouseDown event handler.
-                document.onmousedown = function () {
+                document.onmousedown = function() {
                     return false;
                 };
             } else {
 
                 //Disable the OnMouseUp event handler.
-                document.onmousedown = function (e) {
+                document.onmousedown = function(e) {
                     if (e != null && e.type == "mousedown") {
                         //Check the Mouse Button which is clicked.
                         if (e.which == 1 || e.which == 2) {
@@ -730,19 +745,19 @@ if (!empty($_SESSION["username"])) {
             }
 
             //Disable the Context Menu event.
-            document.oncontextmenu = function () {
+            document.oncontextmenu = function() {
                 return false;
             };
         </script>
 
         <script>
-            $(window).on('focus', function () {
+            $(window).on('focus', function() {
                 function mouseLeave() {
                     alert("warning! Don't Do this again");
                 }
 
             });
-            $(window).on('blur', function () {
+            $(window).on('blur', function() {
 
                 warning++;
                 alert("This is your" + " " + warning + " " + "Warning")
@@ -754,7 +769,7 @@ if (!empty($_SESSION["username"])) {
                     });
                     document.getElementById("man").style.display = "none";
                     document.getElementById("finish").style.display = "block";
-                    setTimeout(function () {
+                    setTimeout(function() {
                         window.location.href = "index.html";
                     }, 10000);
                 }
@@ -762,13 +777,13 @@ if (!empty($_SESSION["username"])) {
         </script>
 
         <script>
-            $(document).ready(function () {
-                $("#bdy").mouseleave(function () {
+            $(document).ready(function() {
+                $("#bdy").mouseleave(function() {
                     $(".warn").css({
                         "visibility": "visible"
                     });
                 })
-                $("#bdy").mouseenter(function () {
+                $("#bdy").mouseenter(function() {
                     $(".warn").css({
                         "visibility": "hidden"
                     });
@@ -778,11 +793,11 @@ if (!empty($_SESSION["username"])) {
 
 
     </body>
-    <?php
+<?php
 } else {
     session_destroy();
     echo ("trying to be oversmart plz do it proper then come to page hehehee...");
 }
 ?>
 
-</html>
+    </html>

@@ -63,6 +63,7 @@ body::-webkit-scrollbar-thumb {
 }
 
 .createExamPaper {
+    width: 60%;
     display: none;
 }
 
@@ -70,6 +71,11 @@ body::-webkit-scrollbar-thumb {
     display: none;
 }
 .updatePaper{
+    display: none;
+}
+
+.deletePaper{
+    width: 75%;
     display: none;
 }
 
@@ -161,14 +167,8 @@ body::-webkit-scrollbar-thumb {
     align-items: center;
 }
 
-
-
-
-
-
 .fields {
     display: flex;
-    /* padding: 10px 30px 10px 30px; */
 }
 
 input {
@@ -179,6 +179,7 @@ input {
     border-radius: 0% !important;
     border-width: 0 0 2px 0 !important;
     font-size: 30px;
+    max-width: 50% !important;
 }
 
 
@@ -194,10 +195,6 @@ form {
 h2 {
     color: black;
     text-align: center;
-}
-
-label {
-    font-size: 20px;
 }
 
 

@@ -250,6 +250,7 @@
 <?php
 
 include '../config/connective.php';
+
 if (isset($_POST["Register"])) {
     $Institution = $_POST["Institute_Name"];
     $branch = $_POST['branch'];
