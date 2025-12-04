@@ -1,0 +1,197 @@
+/* =====================================================
+   Keybinding Page - Modern UI with Accessibility
+   Keyboard Shortcuts and Configuration
+   ===================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+/* CSS Custom Properties */
+:root {
+    /* Primary Colors */
+    --primary-color: #4f46e5;
+    --primary-hover: #4338ca;
+    --primary-light: #e0e7ff;
+    
+    /* Secondary Colors */
+    --secondary-color: #06b6d4;
+    
+    /* Neutral Colors */
+    --text-primary: #1e293b;
+    --text-secondary: #64748b;
+    --text-light: #f8fafc;
+    --bg-primary: #ffffff;
+    --bg-secondary: #f1f5f9;
+    
+    /* Status Colors */
+    --error: #ef4444;
+    
+    /* Shadows */
+    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    
+    /* Border Radius */
+    --radius-md: 0.5rem;
+    --radius-lg: 0.75rem;
+    --radius-xl: 1rem;
+    --radius-2xl: 1.5rem;
+    --radius-full: 9999px;
+    
+    /* Typography */
+    --font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
+    --font-size-sm: 1rem;
+    --font-size-base: 1.125rem;
+    --font-size-lg: 1.25rem;
+    --font-size-xl: 1.5rem;
+    --font-size-2xl: 1.875rem;
+    
+    /* Spacing */
+    --spacing-xs: 0.5rem;
+    --spacing-sm: 0.75rem;
+    --spacing-md: 1rem;
+    --spacing-lg: 1.5rem;
+    --spacing-xl: 2rem;
+    
+    /* Transitions */
+    --transition-fast: 150ms ease;
+    --transition-normal: 250ms ease;
+}
+
+/* Keybinding Body */
+.keybindingBody {
+    font-family: var(--font-family);
+    background: linear-gradient(135deg, #e0e7ff 0%, #cffafe 50%, #fce7f3 100%);
+    min-height: 100vh;
+    color: var(--text-primary);
+    padding: var(--spacing-xl);
+}
+
+/* Container */
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    color: var(--text-primary);
+}
+
+/* Heading */
+h1 {
+    text-align: center;
+    font-size: var(--font-size-2xl);
+    font-weight: 700;
+    padding-bottom: var(--spacing-lg);
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* Main Content */
+.main {
+    background: var(--bg-primary);
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-lg);
+    padding: var(--spacing-xl);
+    border-radius: var(--radius-2xl);
+    box-shadow: var(--shadow-lg);
+}
+
+/* Form Elements */
+label {
+    display: block;
+    font-size: var(--font-size-base);
+    font-weight: 600;
+    color: var(--text-primary);
+    padding: var(--spacing-sm) 0;
+}
+
+input {
+    width: 100%;
+    padding: var(--spacing-md) var(--spacing-lg);
+    font-size: var(--font-size-sm);
+    font-family: monospace;
+    color: var(--text-light) !important;
+    background: var(--text-primary) !important;
+    border: 2px solid var(--bg-secondary) !important;
+    border-radius: var(--radius-lg) !important;
+    text-transform: lowercase;
+    transition: all var(--transition-fast);
+}
+
+input:focus {
+    outline: none;
+    border-color: var(--primary-color) !important;
+    box-shadow: 0 0 0 3px var(--primary-light);
+}
+
+/* Head Section */
+#head p {
+    font-size: var(--font-size-base);
+    text-align: center;
+    color: var(--text-secondary);
+    margin-bottom: var(--spacing-md);
+}
+
+/* Instructions List */
+ul {
+    list-style: none;
+    padding: 0;
+    margin: var(--spacing-md) 0;
+}
+
+ul li {
+    color: var(--error);
+    font-weight: 600;
+    font-size: var(--font-size-sm);
+    padding: var(--spacing-xs) 0;
+    padding-left: var(--spacing-lg);
+    position: relative;
+}
+
+ul li::before {
+    content: "⚠️";
+    position: absolute;
+    left: 0;
+}
+
+/* Responsive */
+@media screen and (max-width: 1200px) {
+    label {
+        font-size: var(--font-size-sm);
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .keybindingBody {
+        padding: var(--spacing-md);
+    }
+    
+    .main {
+        padding: var(--spacing-lg);
+    }
+    
+    h1 {
+        font-size: var(--font-size-xl);
+    }
+}
+
+/* Focus Styles */
+:focus-visible {
+    outline: 3px solid var(--primary-color);
+    outline-offset: 2px;
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+/* High Contrast */
+@media (prefers-contrast: high) {
+    input {
+        border-width: 3px !important;
+    }
+}

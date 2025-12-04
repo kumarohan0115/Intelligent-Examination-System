@@ -1,0 +1,685 @@
+/* ==========================================================================
+   TEST MANAGEMENT DASHBOARD - Professional Admin Panel
+   Dashboard, CRUD Operations, Exam Management
+   ========================================================================== */
+
+/* Design Tokens */
+:root {
+    /* Brand Colors */
+    --brand-primary: #2563eb;
+    --brand-primary-dark: #1d4ed8;
+    --brand-primary-light: #dbeafe;
+    --brand-secondary: #7c3aed;
+    --brand-accent: #06b6d4;
+    
+    /* Status Colors */
+    --color-success: #059669;
+    --color-success-light: #d1fae5;
+    --color-warning: #d97706;
+    --color-warning-light: #fef3c7;
+    --color-error: #dc2626;
+    --color-error-light: #fee2e2;
+    --color-info: #0284c7;
+    --color-info-light: #e0f2fe;
+    
+    /* Neutral Palette */
+    --neutral-50: #f8fafc;
+    --neutral-100: #f1f5f9;
+    --neutral-200: #e2e8f0;
+    --neutral-300: #cbd5e1;
+    --neutral-400: #94a3b8;
+    --neutral-500: #64748b;
+    --neutral-600: #475569;
+    --neutral-700: #334155;
+    --neutral-800: #1e293b;
+    --neutral-900: #0f172a;
+    
+    /* Surface Colors */
+    --surface-primary: #ffffff;
+    --surface-secondary: #f8fafc;
+    --surface-elevated: #ffffff;
+    
+    /* Typography */
+    --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    --font-weight-normal: 400;
+    --font-weight-medium: 500;
+    --font-weight-semibold: 600;
+    --font-weight-bold: 700;
+    --font-weight-extrabold: 800;
+    
+    /* Spacing Scale */
+    --space-1: 0.25rem;
+    --space-2: 0.5rem;
+    --space-3: 0.75rem;
+    --space-4: 1rem;
+    --space-5: 1.25rem;
+    --space-6: 1.5rem;
+    --space-8: 2rem;
+    --space-10: 2.5rem;
+    --space-12: 3rem;
+    
+    /* Border Radius */
+    --radius-sm: 6px;
+    --radius-md: 8px;
+    --radius-lg: 12px;
+    --radius-xl: 16px;
+    --radius-2xl: 20px;
+    --radius-full: 9999px;
+    
+    /* Shadows */
+    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
+    --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+    --shadow-card: 0 0 0 1px rgba(0, 0, 0, 0.03), 0 2px 4px rgba(0, 0, 0, 0.05), 0 12px 24px rgba(0, 0, 0, 0.05);
+    
+    /* Transitions */
+    --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-base: 200ms cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-slow: 300ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Base Reset */
+*, *::before, *::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    list-style: none;
+}
+
+html {
+    font-size: 16px;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+    font-family: var(--font-sans);
+    font-weight: var(--font-weight-normal);
+    line-height: 1.6;
+    color: var(--neutral-800);
+    background: var(--neutral-100);
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+/* Custom Scrollbar */
+body::-webkit-scrollbar {
+    width: 8px;
+}
+
+body::-webkit-scrollbar-track {
+    background: var(--neutral-100);
+}
+
+body::-webkit-scrollbar-thumb {
+    background: var(--neutral-300);
+    border-radius: var(--radius-full);
+}
+
+body::-webkit-scrollbar-thumb:hover {
+    background: var(--neutral-400);
+}
+
+/* Focus Styles */
+:focus-visible {
+    outline: 2px solid var(--brand-primary);
+    outline-offset: 2px;
+}
+
+/* ==========================================================================
+   NAVIGATION
+   ========================================================================== */
+.testManagementNav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--space-4) var(--space-6);
+    background: var(--surface-primary);
+    border-bottom: 1px solid var(--neutral-200);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+/* ==========================================================================
+   ACTION CARDS (CRUD Operations)
+   ========================================================================== */
+.container .services {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: var(--space-4);
+    padding: var(--space-6);
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.container .services .CRUD {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-3);
+    padding: var(--space-6) var(--space-4);
+    background: var(--surface-primary);
+    border-radius: var(--radius-xl);
+    border: 1px solid var(--neutral-200);
+    color: var(--neutral-700);
+    font-weight: var(--font-weight-semibold);
+    font-size: 0.9375rem;
+    cursor: pointer;
+    box-shadow: var(--shadow-sm);
+    transition: all var(--transition-base);
+    text-align: center;
+}
+
+.CRUD img {
+    height: 40px;
+    width: 40px;
+    object-fit: contain;
+    opacity: 0.85;
+    transition: all var(--transition-base);
+}
+
+.CRUD:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
+    border-color: var(--brand-primary);
+    background: var(--brand-primary-light);
+}
+
+.CRUD:hover img {
+    opacity: 1;
+    transform: scale(1.1);
+}
+
+/* ==========================================================================
+   SECTION PANELS
+   ========================================================================== */
+.createExamPaper,
+.allExams,
+.updatePaper,
+.deletePaper,
+.examRecords {
+    display: none;
+    animation: panelSlide 0.3s ease-out;
+}
+
+@keyframes panelSlide {
+    from {
+        opacity: 0;
+        transform: translateY(8px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.createExamPaper {
+    width: 100%;
+    max-width: 600px;
+}
+
+.deletePaper,
+.examRecords {
+    width: 100%;
+    max-width: 900px;
+}
+
+.visible {
+    display: block;
+}
+
+/* ==========================================================================
+   MAIN CONTAINER
+   ========================================================================== */
+.main {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: var(--space-6);
+    padding: var(--space-6);
+    min-height: calc(100vh - 180px);
+}
+
+.main > * {
+    align-self: flex-start;
+}
+
+/* Section Heading */
+.heading {
+    text-align: center;
+    font-size: 1.75rem;
+    font-weight: var(--font-weight-bold);
+    color: var(--neutral-800);
+    margin-bottom: var(--space-6);
+    letter-spacing: -0.02em;
+}
+
+/* ==========================================================================
+   ALL EXAMS PANEL
+   ========================================================================== */
+.allExams {
+    width: 100%;
+    max-width: 700px;
+    background: var(--surface-primary);
+    border-radius: var(--radius-xl);
+    padding: var(--space-6);
+    box-shadow: var(--shadow-card);
+    border: 1px solid var(--neutral-200);
+}
+
+.allExams .allExam-main ul {
+    padding: 0;
+}
+
+.allExams .allExam-main ul li {
+    padding: var(--space-3) var(--space-4);
+    margin: var(--space-2) 0;
+    background: var(--neutral-50);
+    border-radius: var(--radius-md);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: var(--font-weight-medium);
+    font-size: 0.9375rem;
+    color: var(--neutral-700);
+    transition: all var(--transition-fast);
+    border: 1px solid var(--neutral-200);
+}
+
+.allExam-main ul li:first-child {
+    font-weight: var(--font-weight-semibold);
+    background: var(--brand-primary);
+    color: white;
+    border-color: var(--brand-primary);
+}
+
+.examPapers:hover {
+    background: var(--brand-primary-light);
+    border-color: var(--brand-primary);
+    cursor: pointer;
+}
+
+/* ==========================================================================
+   UPDATE PAPER SECTION
+   ========================================================================== */
+.updatePaper .updateAllExam-main ul li {
+    padding: var(--space-3) var(--space-4);
+    margin: var(--space-2) 0;
+    background: var(--neutral-50);
+    border-radius: var(--radius-md);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: var(--font-weight-medium);
+    font-size: 0.9375rem;
+    transition: all var(--transition-fast);
+    border: 1px solid var(--neutral-200);
+}
+
+.updateAllExam-main ul li:first-child {
+    font-weight: var(--font-weight-semibold);
+    background: var(--brand-primary);
+    color: white;
+    border-color: var(--brand-primary);
+}
+
+.paperNameforUpdate {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: var(--space-4);
+}
+
+/* ==========================================================================
+   FORM STYLES
+   ========================================================================== */
+.fields {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+    margin-bottom: var(--space-4);
+}
+
+.fields label {
+    font-size: 0.875rem;
+    font-weight: var(--font-weight-medium);
+    color: var(--neutral-700);
+}
+
+input {
+    width: 100%;
+    padding: var(--space-3) var(--space-4);
+    font-size: 0.9375rem;
+    font-family: var(--font-sans);
+    color: var(--neutral-800) !important;
+    background: var(--neutral-50) !important;
+    border: 1.5px solid var(--neutral-200) !important;
+    border-radius: var(--radius-md) !important;
+    transition: all var(--transition-fast);
+}
+
+input:hover {
+    border-color: var(--neutral-300) !important;
+    background: white !important;
+}
+
+input:focus {
+    outline: none !important;
+    border-color: var(--brand-primary) !important;
+    background: white !important;
+    box-shadow: 0 0 0 3px var(--brand-primary-light);
+}
+
+/* Form Container */
+form {
+    background: var(--surface-primary);
+    border: 1px solid var(--neutral-200);
+    border-radius: var(--radius-xl);
+    padding: var(--space-6);
+    box-shadow: var(--shadow-card);
+}
+
+h2 {
+    color: var(--neutral-800);
+    text-align: center;
+    font-size: 1.25rem;
+    font-weight: var(--font-weight-semibold);
+    margin-bottom: var(--space-6);
+}
+
+/* Submit Button */
+.button-sub {
+    margin: var(--space-6) auto 0;
+    display: flex;
+    justify-content: center;
+}
+
+.button-sub button,
+.btn {
+    padding: var(--space-3) var(--space-8);
+    font-size: 0.9375rem;
+    font-weight: var(--font-weight-semibold);
+    font-family: var(--font-sans);
+    color: white;
+    background: var(--brand-primary);
+    border: none;
+    border-radius: var(--radius-lg);
+    cursor: pointer;
+    transition: all var(--transition-base);
+    box-shadow: 0 4px 14px rgba(37, 99, 235, 0.3);
+}
+
+.button-sub button:hover,
+.btn:hover {
+    background: var(--brand-primary-dark);
+    transform: translateY(-1px);
+    box-shadow: 0 6px 20px rgba(37, 99, 235, 0.4);
+}
+
+/* ==========================================================================
+   TABLE STYLES
+   ========================================================================== */
+.custom-table {
+    width: 100%;
+    padding: var(--space-4) 0;
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    background: var(--surface-primary);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    border: 1px solid var(--neutral-200);
+}
+
+table tr th,
+table tr td {
+    padding: var(--space-3) var(--space-4);
+    text-align: left;
+    border-bottom: 1px solid var(--neutral-100);
+    font-size: 0.875rem;
+}
+
+table tr th {
+    background: var(--brand-primary);
+    color: white;
+    font-weight: var(--font-weight-semibold);
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    font-size: 0.8125rem;
+}
+
+table tr:last-child td {
+    border-bottom: none;
+}
+
+table tr:hover td {
+    background: var(--neutral-50);
+}
+
+/* ==========================================================================
+   BACK BUTTON
+   ========================================================================== */
+.bck {
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--surface-primary);
+    border: 1px solid var(--neutral-200);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sm);
+    cursor: pointer;
+    transition: all var(--transition-base);
+}
+
+.bck:hover {
+    background: var(--neutral-50);
+    border-color: var(--neutral-300);
+}
+
+.bck a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--neutral-700);
+}
+
+/* Blur utility */
+.blurr {
+    filter: blur(8px);
+    pointer-events: none;
+}
+
+/* ==========================================================================
+   PROFILE SECTION
+   ========================================================================== */
+.profile {
+    width: 44px;
+    height: 44px;
+    border-radius: var(--radius-full);
+    object-fit: cover;
+    border: 2px solid var(--neutral-200);
+    cursor: pointer;
+    transition: all var(--transition-base);
+}
+
+.profile:hover {
+    border-color: var(--brand-primary);
+    box-shadow: 0 0 0 3px var(--brand-primary-light);
+}
+
+/* ==========================================================================
+   PROFILE SLIDE-IN CARD
+   ========================================================================== */
+.profile-card {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 280px;
+    height: 100vh;
+    background: var(--surface-primary);
+    box-shadow: var(--shadow-xl);
+    border-right: 1px solid var(--neutral-200);
+    overflow: hidden;
+    z-index: 1000;
+    /* margin-left is controlled by inline style and jQuery animation */
+}
+
+.first {
+    background: linear-gradient(135deg, var(--brand-primary), var(--brand-secondary));
+    padding: var(--space-3) var(--space-4);
+    display: flex;
+    justify-content: flex-end;
+}
+
+.first span {
+    color: white;
+    cursor: pointer;
+    padding: var(--space-1);
+    opacity: 0.8;
+    font-size: 1.125rem;
+    line-height: 1;
+}
+
+.first span:hover {
+    opacity: 1;
+}
+
+.second {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: var(--space-5);
+}
+
+.second #pic {
+    width: 72px;
+    height: 72px;
+    border-radius: var(--radius-full);
+    border: 3px solid var(--brand-primary-light);
+    object-fit: cover;
+    margin-bottom: var(--space-3);
+}
+
+.details {
+    text-align: center;
+    width: 100%;
+}
+
+.details h3 {
+    color: var(--neutral-800);
+    font-size: 1rem;
+    font-weight: var(--font-weight-semibold);
+    margin-bottom: var(--space-1);
+}
+
+.details p {
+    color: var(--neutral-500);
+    font-size: 0.8125rem;
+    margin-bottom: var(--space-4);
+}
+
+.details button {
+    background: var(--color-error);
+    color: white;
+    border: none;
+    padding: var(--space-2) var(--space-5);
+    border-radius: var(--radius-md);
+    font-size: 0.8125rem;
+    font-weight: var(--font-weight-medium);
+    font-family: var(--font-sans);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+}
+
+.details button:hover {
+    background: #b91c1c;
+}
+
+#logout {
+    min-width: 100px;
+    min-height: 36px;
+}
+
+/* ==========================================================================
+   RESPONSIVE DESIGN
+   ========================================================================== */
+@media screen and (max-width: 768px) {
+    .container .services {
+        grid-template-columns: repeat(2, 1fr);
+        gap: var(--space-3);
+        padding: var(--space-4);
+    }
+    
+    .container .services .CRUD {
+        padding: var(--space-4) var(--space-3);
+        font-size: 0.875rem;
+    }
+    
+    .main {
+        flex-direction: column;
+        align-items: center;
+        padding: var(--space-4);
+    }
+    
+    .allExams,
+    .deletePaper,
+    .examRecords,
+    .createExamPaper {
+        width: 100%;
+        max-width: 100%;
+    }
+    
+    .profile-card {
+        width: 260px;
+    }
+    
+    form {
+        padding: var(--space-4);
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .container .services {
+        grid-template-columns: 1fr;
+    }
+    
+    .testManagementNav {
+        padding: var(--space-3) var(--space-4);
+    }
+}
+
+/* ==========================================================================
+   ACCESSIBILITY
+   ========================================================================== */
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+@media (prefers-contrast: high) {
+    .CRUD {
+        border: 2px solid var(--neutral-800);
+    }
+    
+    input {
+        border-width: 2px !important;
+    }
+    
+    table,
+    table tr th,
+    table tr td {
+        border: 1px solid var(--neutral-800);
+    }
+}

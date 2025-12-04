@@ -1,0 +1,156 @@
+/* =====================================================
+   Question Update Page - Modern UI with Accessibility
+   Table Styling for Question Management
+   ===================================================== */
+
+/* CSS Custom Properties */
+:root {
+    /* Primary Colors */
+    --primary-color: #4f46e5;
+    --primary-hover: #4338ca;
+    --primary-light: #e0e7ff;
+    
+    /* Secondary Colors */
+    --secondary-color: #06b6d4;
+    
+    /* Neutral Colors */
+    --text-primary: #1e293b;
+    --text-secondary: #64748b;
+    --bg-primary: #ffffff;
+    --bg-secondary: #f1f5f9;
+    
+    /* Status Colors */
+    --error: #ef4444;
+    
+    /* Shadows */
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    
+    /* Border Radius */
+    --radius-lg: 0.75rem;
+    --radius-xl: 1rem;
+    
+    /* Typography */
+    --font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
+    --font-size-sm: 1rem;
+    --font-size-base: 1.125rem;
+    --font-size-lg: 1.25rem;
+    
+    /* Spacing */
+    --spacing-md: 1rem;
+    --spacing-lg: 1.5rem;
+    --spacing-xl: 2rem;
+    
+    /* Transitions */
+    --transition-normal: 250ms ease;
+}
+
+/* Update Window */
+.UpdateWindow {
+    background: var(--bg-primary);
+    border: none;
+    border-radius: var(--radius-xl);
+    width: 100%;
+    padding: var(--spacing-xl);
+    box-shadow: var(--shadow-lg);
+}
+
+/* Paper Table */
+.paperTable {
+    width: 100%;
+    padding: var(--spacing-lg);
+    border-collapse: separate;
+    border-spacing: 0;
+    background: var(--bg-primary);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+}
+
+.paperTable tr {
+    font-size: var(--font-size-base);
+    text-align: left;
+    transition: background var(--transition-normal);
+}
+
+.paperTable tr:hover {
+    background: var(--bg-secondary);
+}
+
+.paperTable th {
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    color: white;
+    font-weight: 600;
+    font-size: var(--font-size-lg);
+    padding: var(--spacing-md) var(--spacing-lg);
+    text-align: left;
+    border: none;
+}
+
+.paperTable th:first-child {
+    border-radius: var(--radius-lg) 0 0 0;
+}
+
+.paperTable th:last-child {
+    border-radius: 0 var(--radius-lg) 0 0;
+}
+
+.paperTable td {
+    padding: var(--spacing-md) var(--spacing-lg);
+    border-bottom: 1px solid var(--bg-secondary);
+    color: var(--text-primary);
+    font-size: var(--font-size-sm);
+}
+
+.paperTable tr:last-child td {
+    border-bottom: none;
+}
+
+.paperTable tr:last-child td:first-child {
+    border-radius: 0 0 0 var(--radius-lg);
+}
+
+.paperTable tr:last-child td:last-child {
+    border-radius: 0 0 var(--radius-lg) 0;
+}
+
+/* Action Buttons in Table */
+.paperTable button {
+    padding: 0.5rem 1rem;
+    font-size: var(--font-size-sm);
+    font-weight: 600;
+    color: white;
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    border: none;
+    border-radius: var(--radius-lg);
+    cursor: pointer;
+    transition: all var(--transition-normal);
+}
+
+.paperTable button:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+}
+
+.paperTable button.delete {
+    background: linear-gradient(135deg, var(--error), #dc2626);
+}
+
+/* Responsive */
+@media screen and (max-width: 768px) {
+    .paperTable {
+        font-size: var(--font-size-sm);
+    }
+    
+    .paperTable th,
+    .paperTable td {
+        padding: var(--spacing-md);
+    }
+}
+
+/* High Contrast */
+@media (prefers-contrast: high) {
+    .paperTable th,
+    .paperTable td {
+        border: 2px solid var(--text-primary);
+    }
+}
